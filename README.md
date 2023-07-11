@@ -1,6 +1,6 @@
 # PerfExec Tooling
 
-Proof of concept tooling referenced at [this blog] (https://posts.specterops.io/performance-diagnostics-and-wmi-21f3e01790d3) 
+Proof of concept tooling referenced at [this blog](https://posts.specterops.io/performance-diagnostics-and-wmi-21f3e01790d3) 
 
 The code is not super clean but project contains an example performance dll that will run CMD.exe and a .NET assembly that will execute the DLL or gather performance data locally or remotely.
 
