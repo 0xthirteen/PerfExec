@@ -1,5 +1,5 @@
 # PerfExec BOF Tooling
-BOF tooling to complement `PerfExec.exe`
+These BOFs can be used with several other public BOFs to closely mimic `PerfExec.exe` functionality.
 
 ### Compiling
 Requires `mingw-w64`
@@ -43,4 +43,4 @@ beacon> perf-trigger "DNS" "Total Query Received" earth-dc.marvel.local
 [!] Payload may still have triggered
 ```
 
-The pre-existing `wmi_query` [BOF](https://github.com/trustedsec/CS-Situational-Awareness-BOF) can be leveraged to trigger collection using WMI
+The pre-existing `wmi_query` [BOF](https://github.com/trustedsec/CS-Situational-Awareness-BOF) can be leveraged to trigger collection using WMI.
