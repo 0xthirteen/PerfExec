@@ -1,0 +1,58 @@
+alias perf-gather {
+    $target = iff(-istrue $2, $2, "localhost");
+
+    $barch = barch( $1 );
+    $dhfs = openf( script_resource( "dist/perf-gather. $+ $barch $+ .o") );
+    $dhrw = readb( $dhfs, -1 );
+    closef( $dhfs );
+
+    if( $dhrw eq $null || $dhrw eq "" ) {
+        berror( $1, "Could not read perf-gather BOF" );
+        return;
+    }
+
+    $task = "Gathering performance data from the registry on " . $target;
+    btask( $1, $task );
+    $argvs = bof_pack( $1, "z", $target );
+    beacon_inline_execute( $1, $dhrw, "go", $argvs );
+}
+
+
+alias perf-trigger {
+    $object = $2;
+    $counter = $3;
+    $target = iff(-istrue $4, $4, "localhost");
+
+    if ( $object eq $null || $counter eq $null ) {
+        berror( $1, "Usage: perf-trigger <target> <object> <counter>" );
+        return;
+    }
+
+    $barch = barch( $1 );
+    $dhfs = openf( script_resource( "dist/perf-trigger. $+ $barch $+ .o") );
+    $dhrw = readb( $dhfs, -1 );
+    closef( $dhfs );
+
+    if( $dhrw eq $null || $dhrw eq "" ) {
+        berror( $1, "Could not read perf-trigger BOF" );
+        return;
+    }
+
+    $task = "Triggering performance data collection on " . $target;
+    btask( $1, $task );
+    $argvs = bof_pack( $1, "zzz", $object, $counter, $target );
+    beacon_inline_execute( $1, $dhrw, "go", $argvs );
+}
+
+
+beacon_command_register(
+    "perf-gather", 
+    "Gather performance data information from the registry", 
+    "Usage: perf-gather <optional: target>"
+)
+
+beacon_command_register(
+    "perf-trigger", 
+    "Trigger performance data collection",
+    "Usage: perf-trigger <object> <counter> <optional: target>"
+)
